@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{%block content%}
+{%for m in messages%} <div class="text-{{m.tags}}">{{m}}</div>{%endfor%}
+    <h1>Welcome to your Profile</h1>
+    <h5><a href="{%url 'update'%}">Edit your profile</a></h5>
+    <h3>{{request.user }}</h3>
+
+{%endblock%}

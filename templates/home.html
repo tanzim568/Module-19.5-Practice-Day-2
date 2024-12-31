@@ -1,0 +1,57 @@
+{%extends 'base.html'%}
+
+{% block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  {%for m in messages%} <div class="text-{{m.tags}}">{{m}}</div>{%endfor%}
+    <div class="container">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Musician Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Instrument Type</th>
+                <th scope="col">Album Name</th>
+                <th scope="col">Release Date</th>
+                {%if request.user.is_authenticated%}
+                <th scope="col">Actions</th>
+                {%endif%}
+              </tr>
+            </thead>
+            <tbody>
+              {% for album in albums%}
+              <tr>
+                <th scope="row">{{album.id}}</th>
+                <td><a href="{% url 'edit_muscian' album.musician.id %}" class=" text-decoration-none">{{album.musician.f_name}} {{album.musician.l_name}}</a></td>
+                <td>{{album.musician.email}}</td>
+                <td>{{album.rating}}</td>
+                <td>{{album.musician.instrument_type}}</td>
+                <td>{{album.name}}</td>
+                <td>{{album.release}}</td>
+                {%if request.user.is_authenticated%}
+                <td>
+                 <button type="submit"  class="btn btn-primary btn-sm"> <a href="{% url 'edit_album' album.id %}" class=" text-decoration-none text-white">Edit</a></button>
+                 <button type="submit" class="btn btn-danger btn-sm"><a href="{% url 'delete_album' album.id %}" class=" text-decoration-none text-white">Delete</a></button>
+
+                </td>
+                {%endif%}
+                
+              </tr>
+             {%endfor%}
+            </tbody>
+          </table>
+
+        </div>
+        <!-- {{albums}} -->
+</body>
+</html>
+
+{%endblock%}
